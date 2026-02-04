@@ -9,12 +9,12 @@ def extract_ext(file,ext):
     * ext: extension name
 
     Output:
-    None, write fits on disk
+    -file_out: name of the file write on disk
     """
     file_out = f'{file}_{ext}.fits'
     hdu = fits.open(file)
-    fits.writeto(file_out, hdu['SCI'].data, hdu['SCI'].header, overwrite=True)
-    return
+    fits.writeto(file_out, hdu[ext].data, hdu[ext].header, overwrite=True)
+    return file_out
 
 if __name__ == "__main__" :
     import argparse
