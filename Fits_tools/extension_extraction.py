@@ -5,11 +5,11 @@ def extract_ext(file,ext):
     Extract extension from multi extension fits file and write it on disk (same location as original file)
     
     Input:
-    * file: file name
-    * ext: extension name
+    - file: file name
+    - ext: extension name
 
     Output:
-    -file_out: name of the file write on disk
+    - file_out: name of the file write on disk
     """
     file_out = f'{file}_{ext}.fits'
     hdu = fits.open(file)
