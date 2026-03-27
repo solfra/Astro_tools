@@ -40,3 +40,17 @@ def extract_header(file_name,ext=1,verbose=False):
     if verbose:
         print(header)
     return header
+
+if __name__ == "__main__" :
+    import argparse
+
+    parser = argparse.ArgumentParser(description='Extract SCI image')
+    parser.add_argument('--file', type=str, help='File name')
+    parser.add_argument('--ext', type=str, help='Extension name name')
+    args = parser.parse_args()
+    
+    file = args.file
+    ext = args.ext
+
+    extract_header(file,ext=ext)
+    fits_preview(file,ext=ext)
