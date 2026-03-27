@@ -1,8 +1,28 @@
 from astropy.io import fits
 import matplotlib.pyplot as plt
 
-def fits_preview(file_name,ext=1,normlise=True):
-    data = fits.open(file_name)
+def fits_preview(file_name,ext=1,normlise=True,show=False,save_name=None):
+    """
+    Open a fits file and show and/or save a preview
+
+    Input:
+    - file_name (str): file name to read
+    - ext (int or str): Name or number of the extension. Default is 1.
+    - show (bool): If True show the image
+    - save_name (str): If not None, name of the file for save the image. If None (default), the image is not saved.
+
+    Output:
+    - None
+    """
+    data = fits.open(file_name)[ext].data
+    plt.figure(figsize=(15,15))
+    plt.imshow(data,origin='lower')
+    if show:
+        plt.show()
+    if save_name is not None:
+        plt.savefig(save_name)
+    plt.close()
+    return None
     
 def extract_header(file_name,ext=1,verbose=False):
     """
