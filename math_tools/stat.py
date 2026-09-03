@@ -17,7 +17,12 @@ def median_by_bins(x,y,bins=10):
 
   _,hist_x_value = np.histogram(x,bins=bins)
 
-  res = {'x_bin':[],'y_med':[],'n_value':[]}
+  res = {'x_bin':[],
+         'y_med':[],
+         'y_mean':[],
+         'y_std':[],
+         'y_error_on_mean':[],
+         'n_value':[]}
 
   max_iter = len(hist_x_value)-1
 
@@ -32,11 +37,25 @@ def median_by_bins(x,y,bins=10):
       mask = (min_lim <= x) & (x < max_lim)
 
     y_bin = y[mask]
-    med = np.median(y_bin)
     n_val = y_bin.shape[0]
+
+    if n_val >0:
+      med = np.median(y_bin)
+      mean = np.mean(y_bin)
+      std = np.std(y_bin)
+      error_mean = std/np.sqrt(n_val)
+
+    else:
+      med=np.nan
+      mean=np.nan
+      std = np.nan
+      error_mean=np.nan
 
     res['x_bin'].append(np.mean([min_lim,max_lim]))
     res['y_med'].append(med)
+    res['y_mean'].append(mean)
+    res['y_std'].append(std)
+    res['y_error_on_mean'].append(error_mean)
     res['n_value'].append(n_val)
 
   return res
